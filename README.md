@@ -1,6 +1,8 @@
 # klt
 klt (Keyboard Layout Translator) - a simple web tool for fixing text accidentally typed with the wrong keyboard layout.
 
+https://ausansdev.github.io/klt/
+
 ## How It Works
 When you enter text in the input field, the script automatically replaces incorrectly typed characters with the correct ones.
 
