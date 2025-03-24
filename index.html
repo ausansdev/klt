@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Исправление раскладки</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script>
         document.addEventListener("DOMContentLoaded", () => {
@@ -14,13 +15,13 @@
 
         function setLanguage(lang) {
             const translations = {
-                ru: { title: "Исправление раскладки клавиатуры", inputPlaceholder: "Введите сломанный текст...", outputLabel: "Исправленный текст:", themeToggle: "Переключить тему" },
-                en: { title: "Keyboard Layout Fix", inputPlaceholder: "Enter broken text...", outputLabel: "Fixed text:", themeToggle: "Toggle Theme" }
+                ru: { title: "Исправление раскладки клавиатуры", inputPlaceholder: "Введите сломанный текст...", outputLabel: "Исправленный текст:", themeToggle: "Тема", github: "Перейти в GitHub" },
+                en: { title: "Keyboard Layout Fix", inputPlaceholder: "Enter broken text...", outputLabel: "Fixed text:", themeToggle: "Theme", github: "Go to GitHub" }
             };
             document.getElementById("title").innerText = translations[lang].title;
             document.getElementById("inputText").placeholder = translations[lang].inputPlaceholder;
             document.getElementById("outputLabel").innerText = translations[lang].outputLabel;
-            document.getElementById("themeToggle").innerText = translations[lang].themeToggle;
+            document.getElementById("themeToggle").title = translations[lang].themeToggle;
         }
 
         function fixKeyboardLayout(text) {
@@ -51,6 +52,17 @@
             padding: 50px;
             transition: background 0.3s, color 0.3s;
         }
+        .theme-btn, .lang-btn, .github-btn {
+            position: fixed;
+            background: transparent;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: inherit;
+        }
+        .theme-btn { top: 15px; left: 15px; }
+        .lang-btn { top: 15px; right: 15px; }
+        .github-btn { bottom: 15px; left: 15px; }
         textarea {
             width: 80%;
             height: 100px;
@@ -73,14 +85,14 @@
             color: white;
             border: 1px solid #444;
         }
-        .btn-toggle {
-            margin: 20px;
-        }
     </style>
 </head>
 <body>
+    <button class="theme-btn" id="themeToggle" onclick="toggleTheme()"><i class="fas fa-adjust"></i></button>
+    <button class="lang-btn" onclick="setLanguage('ru')">🇷🇺</button>
+    <button class="lang-btn" style="right: 60px;" onclick="setLanguage('en')">🇺🇸</button>
+    <a href="https://github.com/ausansdev/klt" class="github-btn" target="_blank"><i class="fab fa-github"></i></a>
     <h2 id="title">Исправление раскладки клавиатуры</h2>
-    <button class="btn btn-primary btn-toggle" id="themeToggle" onclick="toggleTheme()">Переключить тему</button>
     <textarea id="inputText" oninput="updateText()" placeholder="Введите сломанный текст..."></textarea>
     <p><strong id="outputLabel">Исправленный текст:</strong></p>
     <p id="outputText"></p>
