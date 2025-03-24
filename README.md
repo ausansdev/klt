@@ -1,2 +1,0 @@
-# klt
-Keyboard Layout Translator
