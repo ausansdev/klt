@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Исправление раскладки</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const userLang = navigator.language.startsWith("ru") ? "ru" : "en";
+            setLanguage(userLang);
+        });
+
+        function setLanguage(lang) {
+            const translations = {
+                ru: { title: "Исправление раскладки клавиатуры", inputPlaceholder: "Введите сломанный текст...", outputLabel: "Исправленный текст:", themeToggle: "Переключить тему" },
+                en: { title: "Keyboard Layout Fix", inputPlaceholder: "Enter broken text...", outputLabel: "Fixed text:", themeToggle: "Toggle Theme" }
+            };
+            document.getElementById("title").innerText = translations[lang].title;
+            document.getElementById("inputText").placeholder = translations[lang].inputPlaceholder;
+            document.getElementById("outputLabel").innerText = translations[lang].outputLabel;
+            document.getElementById("themeToggle").innerText = translations[lang].themeToggle;
+        }
+
+        function fixKeyboardLayout(text) {
+            const layoutMap = {
+                'q': 'й', 'w': 'ц', 'e': 'у', 'r': 'к', 't': 'е', 'y': 'н', 'u': 'г', 'i': 'ш', 'o': 'щ', 'p': 'з', '[': 'х', ']': 'ъ',
+                'a': 'ф', 's': 'ы', 'd': 'в', 'f': 'а', 'g': 'п', 'h': 'р', 'j': 'о', 'k': 'л', 'l': 'д', ';': 'ж', "'": 'э',
+                'z': 'я', 'x': 'ч', 'c': 'с', 'v': 'м', 'b': 'и', 'n': 'т', 'm': 'ь', ',': 'б', '.': 'ю', '/': '.',
+                'Q': 'Й', 'W': 'Ц', 'E': 'У', 'R': 'К', 'T': 'Е', 'Y': 'Н', 'U': 'Г', 'I': 'Ш', 'O': 'Щ', 'P': 'З', '{': 'Х', '}': 'Ъ',
+                'A': 'Ф', 'S': 'Ы', 'D': 'В', 'F': 'А', 'G': 'П', 'H': 'Р', 'J': 'О', 'K': 'Л', 'L': 'Д', ':': 'Ж', '"': 'Э',
+                'Z': 'Я', 'X': 'Ч', 'C': 'С', 'V': 'М', 'B': 'И', 'N': 'Т', 'M': 'Ь', '<': 'Б', '>': 'Ю', '?': ',',
+            };
+            return text.split('').map(char => layoutMap[char] || char).join('');
+        }
+
+        function updateText() {
+            const inputText = document.getElementById('inputText').value;
+            document.getElementById('outputText').innerText = fixKeyboardLayout(inputText);
+        }
+
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            text-align: center;
+            padding: 50px;
+            transition: background 0.3s, color 0.3s;
+        }
+        textarea {
+            width: 80%;
+            height: 100px;
+            font-size: 16px;
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            font-family: 'Inter', sans-serif;
+        }
+        p {
+            font-size: 18px;
+            margin-top: 20px;
+        }
+        .dark-mode {
+            background: #121212;
+            color: white;
+        }
+        .dark-mode textarea {
+            background: #222;
+            color: white;
+            border: 1px solid #444;
+        }
+        .btn-toggle {
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h2 id="title">Исправление раскладки клавиатуры</h2>
+    <button class="btn btn-primary btn-toggle" id="themeToggle" onclick="toggleTheme()">Переключить тему</button>
+    <textarea id="inputText" oninput="updateText()" placeholder="Введите сломанный текст..."></textarea>
+    <p><strong id="outputLabel">Исправленный текст:</strong></p>
+    <p id="outputText"></p>
+</body>
+</html>
